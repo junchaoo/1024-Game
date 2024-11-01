@@ -1,9 +1,3 @@
-/*Author: Jun Chao Wu
-Course: CSCI-135
-Instructor: Tong Yi
-Assignment: Project 3D
-*/
-
 #include "Board.hpp"
 #include <iostream>
 #include <cstdlib> //rand, srand
@@ -17,10 +11,10 @@ using namespace std;
 
 
 Board::Board(){
-    numRows = 3;
-    numCols = 3;
+    numRows = 4;
+    numCols = 4;
     max = 0;
-    target = 32;
+    target = 1024;
     panel = new int*[numRows];
     for(int r = 0; r < numRows; r++){
         panel[r] = new int[numCols];
@@ -40,7 +34,7 @@ Board::Board(int m){
         numCols = 3;
     }
     max = 0;
-    target = 32;
+    target = 1024;
     panel = new int*[numRows];
     for(int r = 0; r < numRows; r++){
         panel[r] = new int[numCols];
@@ -60,7 +54,7 @@ Board::Board(int m, int n){
         numCols = 3;
     }
     max = 0;
-    target = 32;
+    target = 1024;
     panel = new int*[numRows];
     for(int r = 0; r < numRows; r++){
         panel[r] = new int[numCols];
@@ -299,53 +293,49 @@ void Board::pressRight(){
 }
 
 
-
-
 void Board::start(){
     int round = 1;
     int row;
     int col;
     char ch;
-    max = 1;
+    max = 0;
     selectRandomCell(row, col);
-    selectRandomCell(row,col);
-    while(true){
+    while(true)
+    {
         if(max >= target){
-            cout << "Congratulation!" << endl;
+            cout << "Congratulations!" << endl;
             break;
         }
         ch = getchar();
-        if(ch == 'S'){
+        if(ch == 'P')
+        {
             break;
         }
-        if(ch == '\033'){
-            getchar();
-            switch(getchar()){
-            case 'A':
+        else
+        {
+        switch(ch)
+        {
+            case 'W':
                 cout << "Round " << setw(4) << round << ": ";
-                cout << "Press UP. "
-                     << "Goal: " << target << endl;
+                cout << "Press UP. " << "Goal: " << target << endl;
                 pressUp();
                 round++; 
                 break;
-            case 'B':
+            case 'S':
                 cout << "Round " << setw(4) << round << ": ";
-                cout << "Press DOWN. "
-                     << "Goal: " << target << endl;
+                cout << "Press DOWN. " << "Goal: " << target << endl;
                 pressDown();
+                round++; 
+                break;
+            case 'A':
+                cout << "Round " << setw(4) << round << ": ";
+                cout << "Press LEFT. " << "Goal: " << target << endl;
+                pressLeft();
                 round++; 
                 break;
             case 'D':
                 cout << "Round " << setw(4) << round << ": ";
-                cout << "Press LEFT. "
-                     << "Goal: " << target << endl;
-                pressLeft();
-                round++; 
-                break;
-            case 'C':
-                cout << "Round " << setw(4) << round << ": ";
-                cout << "Press RIGHT. "
-                     << "Goal: " << target << endl;
+                cout << "Press RIGHT. " << "Goal: " << target << endl;
                 pressRight();
                 round++; 
                 break;
